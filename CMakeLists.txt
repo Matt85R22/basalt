@@ -63,11 +63,8 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   add_compile_options($<$<COMPILE_LANGUAGE:CXX>:/Zc:__cplusplus>)
   # nvcc takes host-compiler options through -Xcompiler, and this reaches every CUDA target.
   string(APPEND CMAKE_CUDA_FLAGS " -Xcompiler=/Zc:__cplusplus")
-  # CUDA 13.2's CCCL headers reject cl.exe's traditional preprocessor (fatal C1189), so the CUDA
-  # targets need the standard-conforming one. Same -Xcompiler route as the option above. The flag
-  # belongs to nvcc's HOST compiler specifically: the default host on Windows is cl.exe, and
-  # CCCL's own guard excludes clang, so an explicitly set non-cl host must not receive it.
-  if(NOT CMAKE_CUDA_HOST_COMPILER OR CMAKE_CUDA_HOST_COMPILER MATCHES "(^|[/\\\\])cl(\.exe)?$")
+  # CUDA 13.2's CCCL headers reject cl.exe's traditional preprocessor (C1189); gate on nvcc's host so a non-cl host stays out.
+  if(NOT CMAKE_CUDA_HOST_COMPILER OR CMAKE_CUDA_HOST_COMPILER MATCHES "(^|[/\\\\])cl(\\.exe)?$")
     string(APPEND CMAKE_CUDA_FLAGS " -Xcompiler=/Zc:preprocessor")
   endif()
 endif()
