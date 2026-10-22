@@ -172,6 +172,14 @@ NB da verificare prima di inviare: niente #if _MSC_VER fuori seam (il nostro com
 - PACK: download in corso (90/107 GB a 780 Mbit, ETA pochi minuti) -> greedy-ab.cmd
   pronto, serve solo Strata spento + Matt sveglio.
 
+## 22-10 21:00 - PR #14 FUSA' : eaa800e2 (merge alle 00:20:45Z = 02:20 ora italiana, mentre dormivamo)
+- jesdga ha accettato tutto. Il flag /Zc:preprocessor ora NATIVO nel main (CMakeLists, gated CUDA 13.2+ CCCL).
+- H:\basalt: Matt ha creato alle 02:04 il branch proprio main-Matt (push su fork) coi file di lavoro committati
+  (diario, README, ab-*). NON toccarlo. Branch main locale ff-aggiornato a 1fb3c8f5 senza checkout.
+- Nel main ora c'è 78ca1d6b "resident: keep-what-fits budget e whole-copy gate su un unico room figure":
+  utile da testare per l'esperimento resident (forse il budget auto sara' piu' furbo del nostro pagefile-trucco).
+- Saga chiusa. Bench Strata-vs-basalt (22-10): STRATA vince ovunque a pari spec (dettagli in memoria strata-engine).
+
 ## 22-10 01:10 - COMMENTO 3 POSTATO: prova inviata, aspetto jesdga
 - Commento: https://github.com/jesdga95/basalt/pull/14#issuecomment-6328519921 (bozza:
   .pr-comment-3.md, con hash completi dei 2 exe, tabella diff, rumore, caveat logprob).

@@ -1,4 +1,0 @@
-{
-  "server": { "model": "H:\\basalt\\models\\Qwen3.8-FN-UD-Q4_K_XL.basalt", "gpu": "0", "host": "127.0.0.1", "port": 12342 },
-  "engine": { "spec": 0, "prefill": "auto", "expert-cache": "auto", "vram-reserve-mib": 700, "max-context": 8192, "resident-experts": true }
-}
