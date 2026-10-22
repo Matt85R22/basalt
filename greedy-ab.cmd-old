@@ -1,0 +1,5 @@
+@echo off
+rem greedy-ab.cmd - doppio click quando: pack scaricato + build A/B verde + STRATA SPENTO.
+rem Il .ps1 fa i controlli e si rifiuta se manca qualcosa, non tocca nessun server.
+powershell -NoProfile -ExecutionPolicy Bypass -File H:\basalt\greedy-ab.ps1
+pause

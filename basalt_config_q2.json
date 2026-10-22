@@ -1,0 +1,18 @@
+{
+  "server": {
+    "model": "models/Qwen3.8-FN-GSQ-RCO-Q2_0.basalt",
+    "gpu": "0",
+    "host": "0.0.0.0",
+    "port": 12341
+  },
+  "engine": {
+    "expert-cache": "auto",
+    "prefill": "auto",
+    "spec": 7,
+    "spec-min-p": 0.5,
+    "max-context": 262144,
+    "kv": "int8",
+    "resident-experts": true,
+    "vram-reserve-mib": 700
+  }
+}

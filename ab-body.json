@@ -1,0 +1,1 @@
+{"messages":[{"role":"user","content":"Write a comparative analysis between Monolithic and Microservices architectures. Explain the advantages and disadvantages of both, focusing on scalability, deployment, and operational complexity."}],"temperature":0,"max_tokens":8000,"logprobs":true,"top_logprobs":1,"reasoning_budget_tokens":4096}

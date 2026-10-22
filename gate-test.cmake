@@ -1,0 +1,16 @@
+# gate-test.cmake - verifica della regex del gate su CMAKE_CUDA_HOST_COMPILER (usa le stesse
+# stringhe del CMakeLists). Uso: cmake -P H:\basalt\gate-test.cmake
+set(cases "C:/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v13.4/bin/cl.exe" "cl.exe" "cl" "C:/llvm/bin/clang-cl.exe" "clang++" "clXexe")
+foreach(c IN LISTS cases)
+  if(NOT c OR c MATCHES "(^|[/\\\\])cl(\\.exe)?$")
+    message(STATUS "FLAG SI'  per host='${c}'")
+  else()
+    message(STATUS "FLAG NO   per host='${c}'")
+  endif()
+endforeach()
+set(EMPTY "")
+if(NOT EMPTY OR EMPTY MATCHES "(^|[/\\\\])cl(\.exe)?$")
+  message(STATUS "FLAG SI'  per host='' (default nvcc = cl.exe)")
+else()
+  message(STATUS "FLAG NO   per host='' (default nvcc = cl.exe)")
+endif()

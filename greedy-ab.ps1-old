@@ -1,0 +1,6 @@
+# questo script e' stato ritirato: aveva un bug (passava una stringa dove serviva il FileInfo,
+# .FullName=null su Start-Process). Al suo posto, nell'ordine:
+#   .\ab-run-off.ps1   (Strata SPENTO; produce ab-off1.json ab-off2.json + ab-run-off.log)
+#   .\ab-run-on.ps1    (Strata SPENTO; produce ab-on1.json  ab-on2.json  + ab-run-on.log)
+#   .\ab-compare.ps1   (senza vincoli di GPU; stampa il verdetto)
+throw "usare ab-run-off.ps1 / ab-run-on.ps1 / ab-compare.ps1"

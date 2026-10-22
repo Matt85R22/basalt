@@ -1,0 +1,34 @@
+﻿=== A/B greedy-identity run results (22-10-2026, Windows, RTX 5070 Ti, 128 GiB RAM) ===
+source: basalt main c5f9fa24 checked out twice into two clean worktrees (git diff empty)
+toolkit: CUDA 13.0.2 (nvcc V13.0.88) installed side by side with 13.4, MSVC 19.44
+arm OFF: cmake -DCMAKE_CUDA_FLAGS="-allow-unsupported-compiler"
+arm ON : cmake -DCMAKE_CUDA_FLAGS="-allow-unsupported-compiler -Xcompiler=/Zc:preprocessor"
+binary OFF: H:\basalt-probe-off\bin\basalt.exe  sha256 E89D50E2D1BF86CBBF47A79E6752C81A4393051C042146BD6866D8E0E74ADEC1
+binary ON : H:\basalt-probe\bin\basalt.exe      sha256 EDCC379E2608F85222316A952669FCF07373E05DD22069DEA7CD8414DA080030
+model  : Qwen3.8-FN-UD-Q4_K_XL.basalt (114,596,627,061 bytes), engine spec 0, prefill auto,
+         expert-cache auto, max-context 8192 (expert cache streaming, no resident-experts)
+request: ab-body.json, temperature 0, max_tokens 8000, reasoning_budget_tokens 2048
+
+file    tokens finish  sha256 of extracted greedy text (reasoning + answer)
+off1       2261  stop    ABCC2C287533859BBD3ACFBF778E9DF847D0CDEF972F54FE67BCAD8ED8A7951B
+off2       1853  stop    3EA61FBF031680AF72F62C8647DEA62D454FCF04DD5FEED4AB9BBCEF0E934CBC
+on1        2261  stop    ABCC2C287533859BBD3ACFBF778E9DF847D0CDEF972F54FE67BCAD8ED8A7951B
+on2        1853  stop    3EA61FBF031680AF72F62C8647DEA62D454FCF04DD5FEED4AB9BBCEF0E934CBC
+
+diffs (git diff --no-index --unified=0 on the extracted greedy text):
+  off1      vs on1          0 changed lines   (OFF vs ON)
+  off2      vs on2          0 changed lines   (OFF vs ON)
+  off1      vs off2       206 changed lines   (same binary, repeated run)
+  on1       vs on2        206 changed lines   (same binary, repeated run)
+
+raw JSONs are attached too but are not diffable as-is: every response carries its own id/created.
+The server fills choices[0].logprobs.content with a single entry on this build, so the proof here is
+greedy token identity over the full reasoning + answer text, not logprobs. If exact logits matter,
+docs/precision/builds.md already documents the LH hash route (not needed for this flag).
+Note the noise floor: the same binary repeated (off1 vs off2, on1 vs on2) drifts at char 1290
+(expert-cache state differs between runs), so the harness can and does detect real divergence.
+With that noise present, both OFF-vs-ON pairs still come out byte-identical.
+
+live git diff --no-index run in front of us, 22-10:
+  off1 vs on1: exit 0, empty diff
+  off2 vs on2: exit 0, empty diff
